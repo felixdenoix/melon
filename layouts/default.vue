@@ -1,8 +1,8 @@
 <template>
   <div id="application" class="application">
-    <app-smooth-scroll>
+    <app-smooth-scroll :ease='0.1'>
       <!-- transition panel is just useful for transition between pages -->
-      <div class="transition-panel"> </div> 
+      <div class="transition-panel"> </div>
       <app-logo/>
       <app-header class="stagger" />
       <nuxt/>
@@ -16,11 +16,11 @@
   import AppFooter from '~/components/Footer.vue'
   import AppLogo from '~/components/Logo.vue'
   import AppSmoothScroll from '~/components/utils/SmoothScroll.vue'
-  
+
   if (process.browser) {
     require('smooth-scrolling/smooth-scrolling')
   }
-  
+
   export default {
     components: {
       AppHeader,
@@ -28,36 +28,36 @@
       AppLogo,
       AppSmoothScroll
     },
-  
+
     mounted() {
       this.$nextTick(() => {
         window.smooth.resize()
       })
     },
-  
+
     methods: {
       bindAll() {
         [
           'onScroll'
         ].forEach((fn) => (this[fn] = this[fn].bind(this)))
       },
-  
+
       addListeners() {
         Emitter.on('ON_SCROLL_TICK', this.onScroll)
       },
-  
+
       removeListeners() {
         Emitter.removeListener('ON_SCROLL_TICK', this.onScroll)
       },
-  
+
       onScroll({
         current,
         bounding
       }) {
-  
+
       }
     },
-  
+
     beforeDestroy() {
       this.removeListeners()
     }
@@ -70,10 +70,10 @@
   position relative
   overflow hidden
 
-  .transition-panel 
-    width 100vw 
-    height 100vh 
-    position absolute 
+  .transition-panel
+    width 100vw
+    height 100vh
+    position absolute
     background $colors-B
     left -100%
     z-index 10
@@ -81,4 +81,3 @@
 </style>
 
 
-        
